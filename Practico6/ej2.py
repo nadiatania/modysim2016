@@ -1,10 +1,13 @@
 from random import random, normalvariate
 import math
 
+
 def generar_x():
     u = random()
     x = math.exp(u**2)
     return x
+
+
 def experimento():
     x = generar_x()
     m = x

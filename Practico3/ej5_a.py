@@ -1,6 +1,7 @@
 import random
 import math
 
+
 def calcular_n():
     n = 0
     m = 1
@@ -9,6 +10,7 @@ def calcular_n():
         n += 1
     n -= 1
     return n
+
 
 def experimento(k):
     res = 0
