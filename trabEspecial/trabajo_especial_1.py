@@ -48,6 +48,7 @@ def experimento(N, S, TF, TR, NRO_OPER):
                         # Genero una va exponencial  del tiempo de reparacion
                         Y = generar_va_exponencial(1.0 / TR)
                         t_maq_rep[i] = t + Y
+                        break
         else:  # No hay fallo antes de que una maquina sea reparada
             for i in range(NRO_OPER):
                 if t_maq_rep[i] == min(t_maq_rep):
@@ -61,15 +62,14 @@ def experimento(N, S, TF, TR, NRO_OPER):
                         t_maq_rep[i] = float('inf')
                     break
 
-def calcular_esperanza_desviacion(n):
+def calcular_esperanza_desviacion(n, S, NRO_OPER):
     sum_0 = 0.0
     sum_1 = 0.0
     TF = 1
     TR = 1.0/8.0
     N = 5
-    S = 2
     for _ in range(n):
-        x = experimento(N, S, TF, TR, 2)
+        x = experimento(N, S, TF, TR, NRO_OPER)
         sum_0 += x
         sum_1 += x**2
     esperanza = sum_0 / float(n)
@@ -78,5 +78,9 @@ def calcular_esperanza_desviacion(n):
     print "Tiempo de fallo promedio: " + str(esperanza)
     print "Desviacion estandar: " + str(desv_estandar)
     return esperanza, desv_estandar
-
-calcular_esperanza_desviacion(10)
+print "\nCaso 1: 2 maquinas de repuesto y 1 operario"
+calcular_esperanza_desviacion(10000, 2, 1)
+print "\nCaso 2: 2 maquinas de repuesto y 2 operarios"
+calcular_esperanza_desviacion(10000, 2, 2)
+print "\nCaso 3: 3 maquinas de repuesto y 1 operario"
+calcular_esperanza_desviacion(10000, 3, 1)
