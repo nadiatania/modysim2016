@@ -1,6 +1,7 @@
 from random import random
 from math import log, sqrt
-
+import matplotlib.pyplot as plt
+import numpy as np
 #  Generar los tiempos de falla con una variable aleatoria exponencial con
 #  parametro lambda = TF
 
@@ -78,9 +79,62 @@ def calcular_esperanza_desviacion(n, S, NRO_OPER):
     print "Tiempo de fallo promedio: " + str(esperanza)
     print "Desviacion estandar: " + str(desv_estandar)
     return esperanza, desv_estandar
+
 print "\nCaso 1: 2 maquinas de repuesto y 1 operario"
 calcular_esperanza_desviacion(10000, 2, 1)
 print "\nCaso 2: 2 maquinas de repuesto y 2 operarios"
 calcular_esperanza_desviacion(10000, 2, 2)
 print "\nCaso 3: 3 maquinas de repuesto y 1 operario"
 calcular_esperanza_desviacion(10000, 3, 1)
+
+
+########################################################################
+tiempos_de_fallo_c1 = []
+for _ in range(10000):
+    tiempos_de_fallo_c1.append(experimento(5, 2, 1, 1.0/8.0, 1))
+
+plt.title("Caso 1: 5 Maquinas funcionando, 2 de repuesto y 1 operario")
+plt.xlabel("Tiempo de falla en Meses")
+plt.ylabel("Cant. simulaciones")
+bins = np.linspace(0, 30, 50)
+plt.hist(tiempos_de_fallo_c1, bins=bins, color='r')
+plt.show()
+
+
+########################################################################
+tiempos_de_fallo_c2 = []
+for _ in range(10000):
+    tiempos_de_fallo_c2.append(experimento(5, 2, 1, 1.0/8.0, 2))
+bins = np.linspace(0, 30, 50)
+plt.title("Caso 2: 5 Maquinas funcionando, 2 de repuesto y 2 operarios")
+plt.xlabel("Tiempo de falla en Meses")
+plt.ylabel("Cant. simulaciones")
+plt.hist(tiempos_de_fallo_c2, bins=bins, color='g')
+plt.show()
+
+########################################################################
+tiempos_de_fallo_c3 = []
+for _ in range(10000):
+    tiempos_de_fallo_c3.append(experimento(5, 3, 1, 1.0/8.0, 1))
+
+plt.title("Caso 3: 5 Maquinas funcionando, 3 de repuesto y 1 operario")
+plt.xlabel("Tiempo de falla en Meses")
+plt.ylabel("Cant. simulaciones")
+
+plt.hist(tiempos_de_fallo_c3, bins=50, color='y')
+plt.show()
+
+##################################################################
+plt.figure(figsize=(9, 8))
+plt.title("Comparaciones:\nCaso 2 vs. Caso 3")
+plt.xlabel("Tiempo de falla en Meses")
+plt.ylabel("Cant. simulaciones")
+#bins = np.arange(min(bins), max(bins)+1, 1.0) 
+bins = np.linspace(0, 30, 50)
+#plt.xticks()
+plt.hist(tiempos_de_fallo_c2, alpha=0.5, bins=bins, label='Caso 2', color='y')
+plt.hist(tiempos_de_fallo_c3, alpha=0.5, bins=bins, label='Caso 3', color='c')
+#plt.text(0, -210, "Caso 2: 5 Maquinas funcionando, 2 de repuesto y 2 operarios\n" +
+#"Caso 3: 5 Maquinas funcionando, 3 de repuesto y 1 operario", style='italic')
+plt.legend()
+plt.show()
