@@ -2,6 +2,7 @@ from random import random
 from math import log, sqrt
 import matplotlib.pyplot as plt
 import numpy as np
+import matplotlib.mlab as mlab
 #  Generar los tiempos de falla con una variable aleatoria exponencial con
 #  parametro lambda = TF
 
@@ -95,9 +96,9 @@ for _ in range(10000):
 
 plt.title("Caso 1: 5 Maquinas funcionando, 2 de repuesto y 1 operario")
 plt.xlabel("Tiempo de falla en Meses")
-plt.ylabel("Cant. simulaciones")
+plt.ylabel("Frecuencia Relativa de las simulaciones")
 bins = np.linspace(0, 30, 50)
-plt.hist(tiempos_de_fallo_c1, bins=bins, color='r')
+plt.hist(tiempos_de_fallo_c1, 10, normed=True, color='r')
 plt.show()
 
 
@@ -108,8 +109,8 @@ for _ in range(10000):
 bins = np.linspace(0, 30, 50)
 plt.title("Caso 2: 5 Maquinas funcionando, 2 de repuesto y 2 operarios")
 plt.xlabel("Tiempo de falla en Meses")
-plt.ylabel("Cant. simulaciones")
-plt.hist(tiempos_de_fallo_c2, bins=bins, color='g')
+plt.ylabel("Frecuencia Relativa de las simulaciones")
+plt.hist(tiempos_de_fallo_c2, 10, normed=True, color='g')
 plt.show()
 
 ########################################################################
@@ -119,22 +120,21 @@ for _ in range(10000):
 
 plt.title("Caso 3: 5 Maquinas funcionando, 3 de repuesto y 1 operario")
 plt.xlabel("Tiempo de falla en Meses")
-plt.ylabel("Cant. simulaciones")
+plt.ylabel("Frecuencia Relativa de las simulaciones")
 
-plt.hist(tiempos_de_fallo_c3, bins=50, color='y')
+plt.hist(tiempos_de_fallo_c3, 10, normed=True, color='y')
 plt.show()
 
 ##################################################################
-plt.figure(figsize=(9, 8))
+#plt.figure(figsize=(9, 8))
 plt.title("Comparaciones:\nCaso 2 vs. Caso 3")
 plt.xlabel("Tiempo de falla en Meses")
-plt.ylabel("Cant. simulaciones")
+plt.ylabel("Frecuencia Relativa de las simulaciones")
 #bins = np.arange(min(bins), max(bins)+1, 1.0) 
-bins = np.linspace(0, 30, 50)
-#plt.xticks()
-plt.hist(tiempos_de_fallo_c2, alpha=0.5, bins=bins, label='Caso 2', color='y')
-plt.hist(tiempos_de_fallo_c3, alpha=0.5, bins=bins, label='Caso 3', color='c')
-#plt.text(0, -210, "Caso 2: 5 Maquinas funcionando, 2 de repuesto y 2 operarios\n" +
-#"Caso 3: 5 Maquinas funcionando, 3 de repuesto y 1 operario", style='italic')
+bins = np.linspace(0, 10, 40)
+plt.hist(tiempos_de_fallo_c2, alpha=0.7, bins=10, normed=True, label='Caso 2', color='b')
+plt.hist(tiempos_de_fallo_c3, alpha=0.5, bins=10, normed=True, label='Caso 3', color='r')
+#plt.xticks(np.arange(min(bins), max(bins)+1, 1.0))
+
 plt.legend()
 plt.show()
